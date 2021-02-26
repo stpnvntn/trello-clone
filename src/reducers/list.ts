@@ -94,6 +94,10 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
+    case ListActionType.Restore: {
+      const state = action.payload;
+      return state;
+    }
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ListActionType } from 'actionTypes/list';
 import { Action } from 'types/Action';
+import { State } from 'types';
 
 type AddList = Action<ListActionType.AddList, { title: string; id: string }>;
 export function addList(title: string): AddList {
@@ -69,4 +70,12 @@ export function moveCard(args: {
   };
 }
 
-export type ListActions = AddList | AddCard | EditCardTitle | DeleteCard | MoveCard;
+type RestoreState = Action<ListActionType.Restore, State>;
+export function restoreState(state: State): RestoreState {
+  return {
+    type: ListActionType.Restore,
+    payload: state,
+  };
+}
+
+export type ListActions = AddList | AddCard | EditCardTitle | DeleteCard | MoveCard | RestoreState;

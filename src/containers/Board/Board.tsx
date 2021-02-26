@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import Header from 'components/Header';
 import AddNewList from 'components/AddNewList';
@@ -7,12 +7,22 @@ import listReducer, { initialState as listInitialState } from 'reducers/list';
 import * as ListActions from 'actions/list';
 
 import styles from './Board.module.css';
+import { BoardService } from './board.service';
 
 const Board: React.FC = () => {
   const [state, dispatch] = useReducer(listReducer, listInitialState);
   const [cardInDrag, setCardInDrag] = useState<{ cardId: string; listId: string } | null>(null);
 
-  console.log({ state });
+  useEffect(() => {
+    const state = BoardService.getState();
+    if (state) {
+      dispatch(ListActions.restoreState(state));
+    }
+  }, []);
+
+  useEffect(() => {
+    BoardService.saveState(state);
+  }, [state]);
 
   const handleAddNewList = (title: string) => {
     dispatch(ListActions.addList(title));
