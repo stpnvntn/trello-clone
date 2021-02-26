@@ -14,4 +14,31 @@ export function addList(title: string): AddList {
   };
 }
 
-export type ListActions = AddList;
+type AddCard = Action<ListActionType.AddCard, { title: string; id: string; listId: string }>;
+export function addCard(title: string, listId: string): AddCard {
+  return {
+    type: ListActionType.AddCard,
+    payload: {
+      title,
+      id: uuidv4(),
+      listId,
+    },
+  };
+}
+
+type EditCardTitle = Action<
+  ListActionType.EditCardLabel,
+  { newTitle: string; cardId: string; listId: string }
+>;
+export function editCardTitle(newTitle: string, cardId: string, listId: string): EditCardTitle {
+  return {
+    type: ListActionType.EditCardLabel,
+    payload: {
+      newTitle,
+      cardId,
+      listId,
+    },
+  };
+}
+
+export type ListActions = AddList | AddCard | EditCardTitle;

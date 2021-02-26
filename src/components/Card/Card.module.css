@@ -1,0 +1,17 @@
+.Card {
+  min-height: 32px;
+  height: fit-content;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  padding: 4px;
+}
+
+.title {
+  font-weight: 500;
+  height: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

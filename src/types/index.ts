@@ -9,8 +9,9 @@ export type ListObj = {
 };
 
 export type CardObj = {
+  id: string;
   title: string;
-  description: string;
+  description?: string;
 };
 
 export type Lists = {

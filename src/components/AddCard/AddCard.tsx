@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import styles from './AddNewList.module.css';
+import styles from './AddCard.module.css';
 
-type AddNewListProps = {
+type AddCardProps = {
   onAdd: (title: string) => void;
 };
-const AddNewList: React.FC<AddNewListProps> = (props) => {
+const AddCard: React.FC<AddCardProps> = (props) => {
   const { onAdd } = props;
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -38,7 +38,7 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
           </span>
         </div>
       ) : (
-        <span className={styles.AddNewList} onClick={handleClick}>
+        <span className={styles.AddCard} onClick={handleClick}>
           <span>＋ Add another list</span>
         </span>
       )}
@@ -46,4 +46,4 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
   );
 };
 
-export default AddNewList;
+export default AddCard;

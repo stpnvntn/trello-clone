@@ -11,8 +11,18 @@ import styles from './Board.module.css';
 const Board: React.FC = () => {
   const [state, dispatch] = useReducer(listReducer, listInitialState);
 
+  console.log({ state });
+
   const handleAddNewList = (title: string) => {
     dispatch(ListActions.addList(title));
+  };
+
+  const handleAddCard = (title: string, listId: string) => {
+    dispatch(ListActions.addCard(title, listId));
+  };
+
+  const handleCardTitleChange = (newTitle: string, cardId: string, listId: string) => {
+    dispatch(ListActions.editCardTitle(newTitle, cardId, listId));
   };
 
   return (
@@ -21,7 +31,14 @@ const Board: React.FC = () => {
 
       <div className={styles.dashboard}>
         {Object.entries(state.lists).map(([id, list]) => (
-          <List key={id} title={list.title} cards={list.cards} id={id} />
+          <List
+            key={id}
+            title={list.title}
+            cards={list.cards}
+            id={id}
+            onCardAdd={handleAddCard}
+            onCardTitleChange={handleCardTitleChange}
+          />
         ))}
         <AddNewList onAdd={handleAddNewList} />
       </div>

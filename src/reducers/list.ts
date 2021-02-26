@@ -22,6 +22,39 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
+    case ListActionType.AddCard: {
+      const { title, id, listId } = action.payload;
+
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [listId]: {
+            ...state.lists[listId],
+            cards: [...state.lists[listId].cards, { title, id }],
+          },
+        },
+      };
+    }
+    case ListActionType.EditCardLabel: {
+      const { newTitle, cardId, listId } = action.payload;
+
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [listId]: {
+            ...state.lists[listId],
+            cards: state.lists[listId].cards.map((card) => {
+              if (cardId === card.id) {
+                return { ...card, title: newTitle };
+              }
+              return card;
+            }),
+          },
+        },
+      };
+    }
     default:
       return state;
   }

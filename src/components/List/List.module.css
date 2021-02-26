@@ -4,4 +4,10 @@
   padding: 4px;
   background-color: #ebecf0;
   width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  margin-bottom: 10px;
 }
