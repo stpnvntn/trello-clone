@@ -1,0 +1,12 @@
+.Board {
+  height: 100vh;
+}
+
+.dashboard {
+  display: flex;
+  padding: 20px;
+}
+
+.dashboard > * {
+  margin-right: 30px;
+}
