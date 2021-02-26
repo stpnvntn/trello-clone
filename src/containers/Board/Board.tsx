@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 
 import Header from 'components/Header';
 import AddNewList from 'components/AddNewList';
@@ -10,6 +10,7 @@ import styles from './Board.module.css';
 
 const Board: React.FC = () => {
   const [state, dispatch] = useReducer(listReducer, listInitialState);
+  const [cardInDrag, setCardInDrag] = useState<{ cardId: string; listId: string } | null>(null);
 
   console.log({ state });
 
@@ -25,6 +26,32 @@ const Board: React.FC = () => {
     dispatch(ListActions.editCardTitle(newTitle, cardId, listId));
   };
 
+  const handleCardDelete = (cardId: string, listId: string) => {
+    dispatch(ListActions.deleteCard(cardId, listId));
+  };
+
+  const handleDragStart = (cardId: string, listId: string) => {
+    setCardInDrag({ cardId, listId });
+  };
+
+  const onDragEnd = () => {
+    setCardInDrag(null);
+  };
+
+  const handleOnDrop = (listId: string) => {
+    if (!cardInDrag) {
+      return;
+    }
+
+    dispatch(
+      ListActions.moveCard({
+        cardId: cardInDrag.cardId,
+        originListId: cardInDrag.listId,
+        targetListId: listId,
+      }),
+    );
+  };
+
   return (
     <div className={styles.Board}>
       <Header />
@@ -38,6 +65,10 @@ const Board: React.FC = () => {
             id={id}
             onCardAdd={handleAddCard}
             onCardTitleChange={handleCardTitleChange}
+            onCardDelete={handleCardDelete}
+            onDragStart={handleDragStart}
+            onDragEnd={onDragEnd}
+            onDrop={handleOnDrop}
           />
         ))}
         <AddNewList onAdd={handleAddNewList} />

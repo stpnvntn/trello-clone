@@ -41,4 +41,32 @@ export function editCardTitle(newTitle: string, cardId: string, listId: string):
   };
 }
 
-export type ListActions = AddList | AddCard | EditCardTitle;
+type DeleteCard = Action<ListActionType.DeleteCard, { cardId: string; listId: string }>;
+export function deleteCard(cardId: string, listId: string): DeleteCard {
+  return {
+    type: ListActionType.DeleteCard,
+    payload: {
+      cardId,
+      listId,
+    },
+  };
+}
+
+type MoveCard = Action<
+  ListActionType.MoveCard,
+  { cardId: string; originListId: string; targetListId: string }
+>;
+export function moveCard(args: {
+  cardId: string;
+  originListId: string;
+  targetListId: string;
+}): MoveCard {
+  return {
+    type: ListActionType.MoveCard,
+    payload: {
+      ...args,
+    },
+  };
+}
+
+export type ListActions = AddList | AddCard | EditCardTitle | DeleteCard | MoveCard;

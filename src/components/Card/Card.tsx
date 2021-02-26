@@ -7,9 +7,12 @@ type CardProps = {
   id: string;
   description?: string;
   onTitleChange: (newTitle: string, id: string) => void;
+  onCardDelete: (id: string) => void;
+  onDragStart: (id: string) => void;
+  onDragEnd: () => void;
 };
 const Card: React.FC<CardProps> = (props) => {
-  const { title, description, id, onTitleChange } = props;
+  const { title, description, id, onTitleChange, onCardDelete, onDragStart, onDragEnd } = props;
 
   const handleTitleChange = useCallback(
     (newTitle: string) => {
@@ -18,10 +21,24 @@ const Card: React.FC<CardProps> = (props) => {
     [onTitleChange, id],
   );
 
+  const handleCardDelete = useCallback(() => {
+    onCardDelete(id);
+  }, [onCardDelete, id]);
+
+  const handleDragStart = useCallback(() => {
+    onDragStart(id);
+  }, [onDragStart, id]);
+
+  const handleDragEnd = useCallback(() => {
+    onDragEnd();
+  }, [onDragStart]);
+
   return (
-    <div className={styles.Card}>
-      <span className="title"></span>
-      <InlineEdit value={title} onChange={handleTitleChange} />
+    <div className={styles.Card} draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <div>
+        <InlineEdit value={title} onChange={handleTitleChange} />
+        <span onClick={handleCardDelete}>✕</span>
+      </div>
       {description && <span>description</span>}
     </div>
   );
@@ -65,7 +82,9 @@ const InlineEdit: React.FC<InlineEditProps> = (props) => {
           <span onClick={handleChange}>✓</span>
         </>
       ) : (
-        <span onClick={onClick}>{value}</span>
+        <span className="title" onClick={onClick}>
+          {value}
+        </span>
       )}
     </>
   );

@@ -25,7 +25,7 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
 
   const resetFort = () => {
     setShowInput(false);
-    setInputValue('');
+    setInputValue('121');
   };
 
   return (
@@ -39,7 +39,7 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
         </div>
       ) : (
         <span className={styles.AddNewList} onClick={handleClick}>
-          <span>＋ Add another list</span>
+          <span>＋ Add another list </span>
         </span>
       )}
     </span>

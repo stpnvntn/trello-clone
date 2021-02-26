@@ -10,10 +10,24 @@ type ListProps = {
   id: string;
   cards: CardObj[];
   onCardAdd: (title: string, listId: string) => void;
-  onCardTitleChange: (newTitle: string, id: string, listId: string) => void;
+  onCardTitleChange: (newTitle: string, cardId: string, listId: string) => void;
+  onCardDelete: (cardId: string, listId: string) => void;
+  onDragStart: (cardId: string, listId: string) => void;
+  onDragEnd: () => void;
+  onDrop: (listId: string) => void;
 };
 const List: React.FC<ListProps> = (props) => {
-  const { title, onCardAdd, id, cards, onCardTitleChange } = props;
+  const {
+    title,
+    onCardAdd,
+    id,
+    cards,
+    onCardTitleChange,
+    onCardDelete,
+    onDragStart,
+    onDragEnd,
+    onDrop,
+  } = props;
 
   const handleCardAdd = useCallback(
     (title: string) => {
@@ -29,8 +43,36 @@ const List: React.FC<ListProps> = (props) => {
     [onCardTitleChange, id],
   );
 
+  const handleCardDelete = useCallback(
+    (cardId: string) => {
+      onCardDelete(cardId, id);
+    },
+    [onCardDelete, id],
+  );
+
+  const handleDragStart = useCallback(
+    (cardId: string) => {
+      onDragStart(cardId, id);
+    },
+    [onDragStart, id],
+  );
+
+  const handleDragEnd = useCallback(() => {
+    onDragEnd();
+  }, [onDragEnd]);
+
+  const handleOnDrop = useCallback(() => {
+    onDrop(id);
+  }, [onDragEnd, id]);
+
   return (
-    <span className={styles.List}>
+    <span
+      className={styles.List}
+      onDragOver={(event) => {
+        event.preventDefault();
+      }}
+      onDrop={handleOnDrop}
+    >
       <h4>{title}</h4>
 
       {cards.map((card) => (
@@ -40,6 +82,9 @@ const List: React.FC<ListProps> = (props) => {
           title={card.title}
           description={card.description}
           onTitleChange={handleCardTitleEdit}
+          onCardDelete={handleCardDelete}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
         />
       ))}
 

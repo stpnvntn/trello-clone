@@ -55,6 +55,45 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
+    case ListActionType.DeleteCard: {
+      const { cardId, listId } = action.payload;
+
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [listId]: {
+            ...state.lists[listId],
+            cards: state.lists[listId].cards.filter(({ id }) => id !== cardId),
+          },
+        },
+      };
+    }
+    case ListActionType.MoveCard: {
+      const { cardId, originListId, targetListId } = action.payload;
+
+      if (originListId === targetListId) {
+        return state;
+      }
+
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [targetListId]: {
+            ...state.lists[targetListId],
+            cards: [
+              ...state.lists[targetListId].cards,
+              state.lists[originListId].cards.find(({ id }) => id === cardId)!,
+            ],
+          },
+          [originListId]: {
+            ...state.lists[originListId],
+            cards: state.lists[originListId].cards.filter(({ id }) => id !== cardId),
+          },
+        },
+      };
+    }
     default:
       return state;
   }
