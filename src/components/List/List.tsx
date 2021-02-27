@@ -73,7 +73,9 @@ const List: React.FC<ListProps> = (props) => {
       }}
       onDrop={handleOnDrop}
     >
-      <h4>{title}</h4>
+      <h4 className={styles.title} title={title}>
+        {title}
+      </h4>
 
       {cards.map((card) => (
         <Card

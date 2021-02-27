@@ -1,0 +1,17 @@
+.title {
+  padding: 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title:hover {
+  cursor: text;
+  background-color: rgb(180, 176, 176);
+}
+
+.confirm:hover {
+  cursor: pointer;
+  color: greenyellow;
+}

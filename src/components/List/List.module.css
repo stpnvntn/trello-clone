@@ -3,11 +3,19 @@
   min-height: 32px;
   padding: 4px;
   background-color: #ebecf0;
+  min-width: 250px;
   width: 250px;
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
 .card {
   margin-bottom: 10px;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

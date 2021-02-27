@@ -1,17 +1,13 @@
-.AddCard {
+.title {
+  cursor: pointer;
   border-radius: 3px;
   height: fit-content;;
   min-height: 32px;
   line-height:  32px;
-  padding: 4px;
   background-color: #ebecf0;
+  width: 100%;
 }
 
-.inputWrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.addBtn {
-  background-color: #8dc891;
-}
+.title:hover {
+  background-color: #ffffff;
+} 

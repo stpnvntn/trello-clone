@@ -1,5 +1,8 @@
 import { memo, useState } from 'react';
+
 import useAutofocusableAutofocusableConditionalInput from 'utils/react/useAutofocusableAutofocusableConditionalInput';
+
+import styles from './InlineEdit.module.css';
 
 type InlineEditProps = {
   onChange: (value: string) => void;
@@ -31,10 +34,12 @@ const InlineEdit: React.FC<InlineEditProps> = (props) => {
       {showInput ? (
         <>
           <input ref={inputRef} value={inputValue} onChange={handleInputChange} />
-          <span onClick={handleChange}>✓</span>
+          <span className={styles.confirm} onClick={handleChange}>
+            ✓
+          </span>
         </>
       ) : (
-        <span className="title" onClick={onClick}>
+        <span className={styles.title} title={value} onClick={onClick}>
           {value}
         </span>
       )}

@@ -45,9 +45,9 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
           onConfirm={handleAdd}
         />
       ) : (
-        <span className={styles.AddNewList} onClick={handleClick}>
-          <span>＋ Add another list </span>
-        </span>
+        <div className={styles.title} onClick={handleClick}>
+          ＋ Add another list
+        </div>
       )}
     </span>
   );

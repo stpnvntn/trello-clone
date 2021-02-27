@@ -35,7 +35,7 @@ const AddCard: React.FC<AddCardProps> = (props) => {
   };
 
   return (
-    <span className={styles.AddNewList}>
+    <div>
       {showInput ? (
         <EditWithButton
           ref={inputRef}
@@ -45,11 +45,11 @@ const AddCard: React.FC<AddCardProps> = (props) => {
           onConfirm={handleAdd}
         />
       ) : (
-        <span className={styles.AddCard} onClick={handleClick}>
-          <span>＋ Add card</span>
-        </span>
+        <div className={styles.title} onClick={handleClick}>
+          ＋ Add card
+        </div>
       )}
-    </span>
+    </div>
   );
 };
 

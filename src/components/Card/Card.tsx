@@ -37,9 +37,11 @@ const Card: React.FC<CardProps> = (props) => {
 
   return (
     <div className={styles.Card} draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div>
+      <div className={styles.title}>
         <InlineEdit value={title} onChange={handleTitleChange} />
-        <span onClick={handleCardDelete}>✕</span>
+        <span className={styles.delete} onClick={handleCardDelete}>
+          ✕
+        </span>
       </div>
       {description && <span>description</span>}
     </div>
