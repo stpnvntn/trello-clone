@@ -29,11 +29,23 @@ const InlineEdit: React.FC<InlineEditProps> = (props) => {
     setShowInput(true);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.code === 'Enter') {
+      onChange(inputValue);
+      setShowInput(false);
+    }
+  };
+
   return (
     <>
       {showInput ? (
         <>
-          <input ref={inputRef} value={inputValue} onChange={handleInputChange} />
+          <input
+            ref={inputRef}
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+          />
           <span className={styles.confirm} onClick={handleChange}>
             ✓
           </span>
