@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { ListActionType } from 'actionTypes/list';
+import { DashboardActionType } from 'actionTypes/dashboard';
 import { Action } from 'types/Action';
 import { State } from 'types';
 
-type AddList = Action<ListActionType.AddList, { title: string; id: string }>;
+type AddList = Action<DashboardActionType.AddList, { title: string; id: string }>;
 export function addList(title: string): AddList {
   return {
-    type: ListActionType.AddList,
+    type: DashboardActionType.AddList,
     payload: {
       title,
       id: uuidv4(),
@@ -15,10 +15,10 @@ export function addList(title: string): AddList {
   };
 }
 
-type AddCard = Action<ListActionType.AddCard, { title: string; id: string; listId: string }>;
+type AddCard = Action<DashboardActionType.AddCard, { title: string; id: string; listId: string }>;
 export function addCard(title: string, listId: string): AddCard {
   return {
-    type: ListActionType.AddCard,
+    type: DashboardActionType.AddCard,
     payload: {
       title,
       id: uuidv4(),
@@ -28,12 +28,12 @@ export function addCard(title: string, listId: string): AddCard {
 }
 
 type EditCardTitle = Action<
-  ListActionType.EditCardLabel,
+  DashboardActionType.EditCardLabel,
   { newTitle: string; cardId: string; listId: string }
 >;
 export function editCardTitle(newTitle: string, cardId: string, listId: string): EditCardTitle {
   return {
-    type: ListActionType.EditCardLabel,
+    type: DashboardActionType.EditCardLabel,
     payload: {
       newTitle,
       cardId,
@@ -42,10 +42,10 @@ export function editCardTitle(newTitle: string, cardId: string, listId: string):
   };
 }
 
-type DeleteCard = Action<ListActionType.DeleteCard, { cardId: string; listId: string }>;
+type DeleteCard = Action<DashboardActionType.DeleteCard, { cardId: string; listId: string }>;
 export function deleteCard(cardId: string, listId: string): DeleteCard {
   return {
-    type: ListActionType.DeleteCard,
+    type: DashboardActionType.DeleteCard,
     payload: {
       cardId,
       listId,
@@ -54,7 +54,7 @@ export function deleteCard(cardId: string, listId: string): DeleteCard {
 }
 
 type MoveCard = Action<
-  ListActionType.MoveCard,
+  DashboardActionType.MoveCard,
   { cardId: string; originListId: string; targetListId: string }
 >;
 export function moveCard(args: {
@@ -63,19 +63,25 @@ export function moveCard(args: {
   targetListId: string;
 }): MoveCard {
   return {
-    type: ListActionType.MoveCard,
+    type: DashboardActionType.MoveCard,
     payload: {
       ...args,
     },
   };
 }
 
-type RestoreState = Action<ListActionType.Restore, State>;
+type RestoreState = Action<DashboardActionType.Restore, State>;
 export function restoreState(state: State): RestoreState {
   return {
-    type: ListActionType.Restore,
+    type: DashboardActionType.Restore,
     payload: state,
   };
 }
 
-export type ListActions = AddList | AddCard | EditCardTitle | DeleteCard | MoveCard | RestoreState;
+export type DashboardActions =
+  | AddList
+  | AddCard
+  | EditCardTitle
+  | DeleteCard
+  | MoveCard
+  | RestoreState;

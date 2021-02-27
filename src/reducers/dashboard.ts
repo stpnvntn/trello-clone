@@ -1,14 +1,14 @@
-import { ListActions } from 'actions/list';
-import { ListActionType } from 'actionTypes/list';
+import { DashboardActions } from 'actions/dashboard';
+import { DashboardActionType } from 'actionTypes/dashboard';
 import { State } from 'types';
 
 export const initialState: State = {
   lists: {},
 };
 
-export default function reducer(state: State = initialState, action: ListActions): State {
+export default function reducer(state: State = initialState, action: DashboardActions): State {
   switch (action.type) {
-    case ListActionType.AddList: {
+    case DashboardActionType.AddList: {
       const { id, title } = action.payload;
       return {
         ...state,
@@ -22,7 +22,7 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
-    case ListActionType.AddCard: {
+    case DashboardActionType.AddCard: {
       const { title, id, listId } = action.payload;
 
       return {
@@ -36,7 +36,7 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
-    case ListActionType.EditCardLabel: {
+    case DashboardActionType.EditCardLabel: {
       const { newTitle, cardId, listId } = action.payload;
 
       return {
@@ -55,7 +55,7 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
-    case ListActionType.DeleteCard: {
+    case DashboardActionType.DeleteCard: {
       const { cardId, listId } = action.payload;
 
       return {
@@ -69,7 +69,7 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
-    case ListActionType.MoveCard: {
+    case DashboardActionType.MoveCard: {
       const { cardId, originListId, targetListId } = action.payload;
 
       if (originListId === targetListId) {
@@ -94,7 +94,7 @@ export default function reducer(state: State = initialState, action: ListActions
         },
       };
     }
-    case ListActionType.Restore: {
+    case DashboardActionType.Restore: {
       const state = action.payload;
       return state;
     }

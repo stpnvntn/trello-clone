@@ -3,20 +3,20 @@ import { useEffect, useReducer, useState } from 'react';
 import Header from 'components/Header';
 import AddNewList from 'components/AddNewList';
 import List from 'components/List';
-import listReducer, { initialState as listInitialState } from 'reducers/list';
-import * as ListActions from 'actions/list';
+import dashboardReducer, { initialState as dashboardInitialState } from 'reducers/dashboard';
+import * as DashboardActions from 'actions/dashboard';
 
 import styles from './Board.module.css';
 import { BoardService } from './board.service';
 
 const Board: React.FC = () => {
-  const [state, dispatch] = useReducer(listReducer, listInitialState);
+  const [state, dispatch] = useReducer(dashboardReducer, dashboardInitialState);
   const [cardInDrag, setCardInDrag] = useState<{ cardId: string; listId: string } | null>(null);
 
   useEffect(() => {
     const state = BoardService.getState();
     if (state) {
-      dispatch(ListActions.restoreState(state));
+      dispatch(DashboardActions.restoreState(state));
     }
   }, []);
 
@@ -25,19 +25,19 @@ const Board: React.FC = () => {
   }, [state]);
 
   const handleAddNewList = (title: string) => {
-    dispatch(ListActions.addList(title));
+    dispatch(DashboardActions.addList(title));
   };
 
   const handleAddCard = (title: string, listId: string) => {
-    dispatch(ListActions.addCard(title, listId));
+    dispatch(DashboardActions.addCard(title, listId));
   };
 
   const handleCardTitleChange = (newTitle: string, cardId: string, listId: string) => {
-    dispatch(ListActions.editCardTitle(newTitle, cardId, listId));
+    dispatch(DashboardActions.editCardTitle(newTitle, cardId, listId));
   };
 
   const handleCardDelete = (cardId: string, listId: string) => {
-    dispatch(ListActions.deleteCard(cardId, listId));
+    dispatch(DashboardActions.deleteCard(cardId, listId));
   };
 
   const handleDragStart = (cardId: string, listId: string) => {
@@ -54,7 +54,7 @@ const Board: React.FC = () => {
     }
 
     dispatch(
-      ListActions.moveCard({
+      DashboardActions.moveCard({
         cardId: cardInDrag.cardId,
         originListId: cardInDrag.listId,
         targetListId: listId,
