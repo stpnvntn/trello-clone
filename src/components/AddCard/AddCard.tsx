@@ -1,4 +1,8 @@
 import { useState } from 'react';
+
+import EditWithButton from 'components/EditWithButton';
+import useAutofocusableAutofocusableConditionalInput from 'utils/react/useAutofocusableAutofocusableConditionalInput';
+
 import styles from './AddCard.module.css';
 
 type AddCardProps = {
@@ -8,6 +12,8 @@ const AddCard: React.FC<AddCardProps> = (props) => {
   const { onAdd } = props;
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState('');
+
+  const inputRef = useAutofocusableAutofocusableConditionalInput(showInput);
 
   const handleClick = () => {
     setShowInput(true);
@@ -29,17 +35,18 @@ const AddCard: React.FC<AddCardProps> = (props) => {
   };
 
   return (
-    <span className={styles.AddNewList} onClick={handleClick}>
+    <span className={styles.AddNewList}>
       {showInput ? (
-        <div className={styles.inputWrapper}>
-          <input type="text" value={inputValue} onChange={handleInputChange} />
-          <span className={styles.addBtn} onClick={handleAdd}>
-            Add List
-          </span>
-        </div>
+        <EditWithButton
+          ref={inputRef}
+          title="Add Card"
+          value={inputValue}
+          onChange={handleInputChange}
+          onConfirm={handleAdd}
+        />
       ) : (
         <span className={styles.AddCard} onClick={handleClick}>
-          <span>＋ Add another list</span>
+          <span>＋ Add card</span>
         </span>
       )}
     </span>

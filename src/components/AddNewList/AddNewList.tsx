@@ -1,4 +1,8 @@
 import { useState } from 'react';
+
+import EditWithButton from 'components/EditWithButton';
+import useAutofocusableAutofocusableConditionalInput from 'utils/react/useAutofocusableAutofocusableConditionalInput';
+
 import styles from './AddNewList.module.css';
 
 type AddNewListProps = {
@@ -8,6 +12,8 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
   const { onAdd } = props;
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState('');
+
+  const inputRef = useAutofocusableAutofocusableConditionalInput(showInput);
 
   const handleClick = () => {
     setShowInput(true);
@@ -29,14 +35,15 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
   };
 
   return (
-    <span className={styles.AddNewList} onClick={handleClick}>
+    <span className={styles.AddNewList}>
       {showInput ? (
-        <div className={styles.inputWrapper}>
-          <input type="text" value={inputValue} onChange={handleInputChange} />
-          <span className={styles.addBtn} onClick={handleAdd}>
-            Add List
-          </span>
-        </div>
+        <EditWithButton
+          ref={inputRef}
+          title="Add list"
+          value={inputValue}
+          onChange={handleInputChange}
+          onConfirm={handleAdd}
+        />
       ) : (
         <span className={styles.AddNewList} onClick={handleClick}>
           <span>＋ Add another list </span>
