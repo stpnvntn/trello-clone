@@ -3,7 +3,7 @@ import AddCard from 'components/AddCard';
 import Card from 'components/Card';
 
 import styles from './List.module.css';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 type ListProps = {
   title: string;
@@ -61,9 +61,9 @@ const List: React.FC<ListProps> = (props) => {
     onDragEnd();
   }, [onDragEnd]);
 
-  const handleOnDrop = useCallback(() => {
+  const handleOnDrop = () => {
     onDrop(id);
-  }, [onDragEnd, id]);
+  };
 
   return (
     <span
@@ -95,4 +95,4 @@ const List: React.FC<ListProps> = (props) => {
   );
 };
 
-export default List;
+export default memo(List);

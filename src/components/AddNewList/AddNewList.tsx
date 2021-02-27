@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import EditWithButton from 'components/EditWithButton';
 import useAutofocusableAutofocusableConditionalInput from 'utils/react/useAutofocusableAutofocusableConditionalInput';
@@ -15,24 +15,27 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
 
   const inputRef = useAutofocusableAutofocusableConditionalInput(showInput);
 
+  const resetForm = () => {
+    setShowInput(false);
+    setInputValue('');
+  };
+
   const handleClick = () => {
     setShowInput(true);
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputValue(value);
-  };
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      setInputValue(value);
+    },
+    [setInputValue],
+  );
 
-  const handleAdd = () => {
+  const handleAdd = useCallback(() => {
     onAdd(inputValue);
-    resetFort();
-  };
-
-  const resetFort = () => {
-    setShowInput(false);
-    setInputValue('121');
-  };
+    resetForm();
+  }, [onAdd, resetForm]);
 
   return (
     <span className={styles.AddNewList}>
@@ -53,4 +56,4 @@ const AddNewList: React.FC<AddNewListProps> = (props) => {
   );
 };
 
-export default AddNewList;
+export default memo(AddNewList);

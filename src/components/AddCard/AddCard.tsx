@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import EditWithButton from 'components/EditWithButton';
 import useAutofocusableAutofocusableConditionalInput from 'utils/react/useAutofocusableAutofocusableConditionalInput';
@@ -19,20 +19,23 @@ const AddCard: React.FC<AddCardProps> = (props) => {
     setShowInput(true);
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputValue(value);
-  };
-
-  const handleAdd = () => {
-    onAdd(inputValue);
-    resetFort();
-  };
-
-  const resetFort = () => {
+  const resetForm = () => {
     setShowInput(false);
     setInputValue('');
   };
+
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      setInputValue(value);
+    },
+    [setInputValue],
+  );
+
+  const handleAdd = useCallback(() => {
+    onAdd(inputValue);
+    resetForm();
+  }, [onAdd, resetForm]);
 
   return (
     <div>
@@ -53,4 +56,4 @@ const AddCard: React.FC<AddCardProps> = (props) => {
   );
 };
 
-export default AddCard;
+export default memo(AddCard);

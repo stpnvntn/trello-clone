@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 
 import InlineEdit from 'components/InlineEdit';
 
@@ -23,17 +23,17 @@ const Card: React.FC<CardProps> = (props) => {
     [onTitleChange, id],
   );
 
-  const handleCardDelete = useCallback(() => {
+  const handleCardDelete = () => {
     onCardDelete(id);
-  }, [onCardDelete, id]);
+  };
 
-  const handleDragStart = useCallback(() => {
+  const handleDragStart = () => {
     onDragStart(id);
-  }, [onDragStart, id]);
+  };
 
-  const handleDragEnd = useCallback(() => {
+  const handleDragEnd = () => {
     onDragEnd();
-  }, [onDragStart]);
+  };
 
   return (
     <div className={styles.Card} draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
@@ -48,4 +48,4 @@ const Card: React.FC<CardProps> = (props) => {
   );
 };
 
-export default Card;
+export default memo(Card);
