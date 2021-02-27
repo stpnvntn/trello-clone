@@ -63,7 +63,7 @@ const Board: React.FC = () => {
   };
 
   return (
-    <div className={styles.Board}>
+    <div className={styles.Board} data-testid="Board-container">
       <Header />
 
       <div className={styles.dashboard}>

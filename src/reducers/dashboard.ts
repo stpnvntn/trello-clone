@@ -36,7 +36,7 @@ export default function reducer(state: State = initialState, action: DashboardAc
         },
       };
     }
-    case DashboardActionType.EditCardLabel: {
+    case DashboardActionType.EditCardTitle: {
       const { newTitle, cardId, listId } = action.payload;
 
       return {

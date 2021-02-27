@@ -28,12 +28,12 @@ export function addCard(title: string, listId: string): AddCard {
 }
 
 type EditCardTitle = Action<
-  DashboardActionType.EditCardLabel,
+  DashboardActionType.EditCardTitle,
   { newTitle: string; cardId: string; listId: string }
 >;
 export function editCardTitle(newTitle: string, cardId: string, listId: string): EditCardTitle {
   return {
-    type: DashboardActionType.EditCardLabel,
+    type: DashboardActionType.EditCardTitle,
     payload: {
       newTitle,
       cardId,
