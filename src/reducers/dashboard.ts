@@ -10,6 +10,11 @@ export default function reducer(state: State = initialState, action: DashboardAc
   switch (action.type) {
     case DashboardActionType.AddList: {
       const { id, title } = action.payload;
+
+      if (!title) {
+        return state;
+      }
+
       return {
         ...state,
         lists: {
@@ -25,6 +30,10 @@ export default function reducer(state: State = initialState, action: DashboardAc
     case DashboardActionType.AddCard: {
       const { title, id, listId } = action.payload;
 
+      if (!title) {
+        return state;
+      }
+
       return {
         ...state,
         lists: {
@@ -38,6 +47,10 @@ export default function reducer(state: State = initialState, action: DashboardAc
     }
     case DashboardActionType.EditCardTitle: {
       const { newTitle, cardId, listId } = action.payload;
+
+      if (!newTitle) {
+        return state;
+      }
 
       return {
         ...state,
