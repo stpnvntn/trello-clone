@@ -1,46 +1,78 @@
-# Getting Started with Create React App
+# Trello clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Trello clone with React. No 3rd partie react lib used. Using `useReduce` for store management for simplicity. Can be easily leveraged with `redux` in future.
 
-## Available Scripts
+The app using `prettier` for code formatting and `eslint` as a linter.
 
-In the project directory, you can run:
+Also, some functionality covered by unit tests.
 
-### `yarn start`
+## App functionality
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [x] A user should be able to add and label columns.
+- [x] A user should be able to add and edit cards.
+- [x] A user should be able to move cards between columns
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  _Implemented simple drag-and-drop (cards can be moved between lists but not to a specific position in the list)_
+  
+- [x] Do make sure the available interactions are intuitive. In other words, we will be considering usability.
+- [x] Some kind of persistency(LocalStorage or SessionStorage) is encouraged, though not required.
+  _LocalStorage has been chosen_
+- [x] Any additional features you find important
+   - [x] _A be able to remove card_
 
-### `yarn test`
+## Install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+yarn
+```
 
-### `yarn build`
+## Run
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+yarn start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+yarn test
+```
 
-### `yarn eject`
+## Project structure
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+We have the following folders at the top:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `./public` - public assets
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- `./src` - source code
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+There are several folders inside ./src:
 
-## Learn More
+- `./src/components` - it should contain a reusable components without any domain specific logic. E.g. "Button" or "Link"
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `./src/container` - domain specific components.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `./src/actions` - action creators.
+
+- `./src/actionsTypes` - action types.
+
+- `./src/reduces` - store reducers.
+
+- `./src/types` - TypeScript types.
+
+- `./src/reduces` - TypeScript types
+
+- `./src/utils` - Shared utils
+
+
+## Improvements todo
+
+- [ ] add git hook
+- [ ] cover more functionality with unit test
+- [ ] add E2E test e.g.with playwright or cypress
+- [ ] CI/CD and deployment (Github actions + Github pages can be used for such simple project)
+- [ ] form validation
+
+## Tech debts
+
+- [ ] At the moment an `Object.entries` been using to render lists. It's fragile cause JavaScript doesn't guarantee object property order and it works only cause ES2015 iterates object in insertion order. Creating a separate array with for `List` ids will fix the problem.
