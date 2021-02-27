@@ -1,6 +1,6 @@
 # Trello clone
 
-A simple Trello clone with React. No 3rd partie react lib used. Using `useReduce` for store management for simplicity. Can be easily leveraged with `redux` in future.
+A simple Trello clone with React. No 3rd party react lib used. Using `useReduce` for store management for simplicity. Can be easily leveraged with `redux` in the future.
 
 The app using `prettier` for code formatting and `eslint` as a linter.
 
